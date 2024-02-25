@@ -12,16 +12,8 @@ import { IProduct } from "../../../../models/product.model";
 })
 export class ProductBoxComponent {
   @Input() fullWidthMode: boolean = false;
+  @Input() product: IProduct | undefined;
   @Output() addToCart = new EventEmitter();
-
-  public product: IProduct | undefined = {
-    id: 1,
-    title: "Sneakers",
-    price: 150,
-    category: "shoes",
-    description: "Description",
-    image: "https://via.placeholder.com/150",
-  };
 
   onAddToCart(): void {
     this.addToCart.emit(this.product);
