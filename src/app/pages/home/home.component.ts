@@ -4,6 +4,8 @@ import { ProductsHeaderComponent } from "./components/products-header/products-h
 import { FiltersComponent } from "./components/filters/filters.component";
 import { MatGridListModule } from "@angular/material/grid-list";
 import { ProductBoxComponent } from "./components/product-box/product-box.component";
+import { IProduct } from "../../models/product.model";
+import { CartService } from "../../services/cart.service";
 
 const ROWS_HEIGHT: { [id: number]: number } = { 1: 400, 3: 335, 4: 450 };
 
@@ -24,6 +26,8 @@ export class HomeComponent {
   public rowHeight: number = ROWS_HEIGHT[this.cols];
   public category: string | undefined;
 
+  constructor(private _cartService: CartService) {}
+
   onColumnsCountChange(colNumber: number): void {
     this.cols = colNumber;
     this.rowHeight = ROWS_HEIGHT[colNumber];
@@ -31,5 +35,15 @@ export class HomeComponent {
 
   onShowCategory(category: string): void {
     this.category = category;
+  }
+
+  onAddToCart(product: IProduct): void {
+    this._cartService.addToCart({
+      id: product.id,
+      name: product.title,
+      price: product.price,
+      product: product.image,
+      quantity: 1,
+    });
   }
 }
