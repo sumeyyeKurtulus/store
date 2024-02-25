@@ -12,11 +12,18 @@ import { MatListModule } from "@angular/material/list";
 import { MatBadgeModule } from "@angular/material/badge";
 import { MatSnackBarModule } from "@angular/material/snack-bar";
 import { HomeComponent } from "./pages/home/home.component";
+import { CartComponent } from "./pages/cart/cart.component";
 
 @Component({
   selector: "app-root",
   standalone: true,
-  imports: [HeaderComponent, HomeComponent, RouterOutlet, CommonModule],
+  imports: [
+    HeaderComponent,
+    HomeComponent,
+    CartComponent,
+    RouterOutlet,
+    CommonModule,
+  ],
   template: ` <app-header></app-header><router-outlet></router-outlet>`,
   styles: [],
 })
