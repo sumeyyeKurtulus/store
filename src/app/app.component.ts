@@ -1,18 +1,12 @@
-import { Component } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { RouterOutlet } from "@angular/router";
 import { HeaderComponent } from "./components/header/header.component";
 import { CommonModule } from "@angular/common";
 
-import { MatGridListModule } from "@angular/material/grid-list";
-import { MatMenuModule } from "@angular/material/menu";
-import { MatButtonModule } from "@angular/material/button";
-import { MatCardModule } from "@angular/material/card";
-import { MatExpansionModule } from "@angular/material/expansion";
-import { MatListModule } from "@angular/material/list";
-import { MatBadgeModule } from "@angular/material/badge";
-import { MatSnackBarModule } from "@angular/material/snack-bar";
 import { HomeComponent } from "./pages/home/home.component";
 import { CartComponent } from "./pages/cart/cart.component";
+import { CartService } from "./services/cart.service";
+import { ICart } from "./models/cart.model";
 
 @Component({
   selector: "app-root",
@@ -24,9 +18,18 @@ import { CartComponent } from "./pages/cart/cart.component";
     RouterOutlet,
     CommonModule,
   ],
-  template: ` <app-header></app-header><router-outlet></router-outlet>`,
+  template: ` <app-header [cart]="cart"></app-header
+    ><router-outlet></router-outlet>`,
   styles: [],
+  providers: [CartService],
 })
-export class AppComponent {
-  title = "store";
+export class AppComponent implements OnInit {
+  cart: ICart = { items: [] };
+
+  constructor(private _cartService: CartService) {}
+  ngOnInit(): void {
+    this._cartService.cart.subscribe((_cart) => {
+      this.cart = _cart;
+    });
+  }
 }
